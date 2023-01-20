@@ -24,8 +24,33 @@ app.use(flash());
 
 
 app.get("/", (req, res) =>{
-    console.log("Está rodando");
-    res.send("Tudo ok")
+    res.render("index");
+});
+
+app.post("/form", (req, res) =>{
+    var {email, nome, pontos} = req.body;
+
+    var emailError;
+    var nomeError;
+    var pontoError;
+
+    if(email == undefined || email == ""){
+        emailError = "O email está vazio"
+    }
+
+    if(nome == undefined || nome == ""){
+        nomeError = "O nome está vazio"
+    }
+
+    if(pontos == undefined || pontos == ""){
+        pontoError = "Os pontos estão vazios"
+    }
+
+    if(emailError != undefined || pontoError != undefined || nomeError != undefined){
+        res.send("Error" + " " + emailError + " " +  pontoError + " " +  nomeError)
+    }else{
+        res.send("Feito")
+    }
 })
 
 
